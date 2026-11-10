@@ -18,7 +18,11 @@ export default function UserTable({ onEdit, reload }) {
   };
 
   useEffect(() => {
-    load();
+    // Retrasamos 1 milisegundo la carga para que React no se queje
+    const timer = setTimeout(() => {
+      load();
+    }, 0);
+    return () => clearTimeout(timer);
   }, [reload]);
 
   const remove = async (username) => {
