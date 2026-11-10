@@ -54,44 +54,54 @@ export default function UserForm({ selected, onSuccess }) {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} style={{ display: 'grid', gap: '8px', maxWidth: '520px', background: '#f4f6f9', padding: '20px', borderRadius: '8px' }}>
+    <form onSubmit={handleSubmit(onSubmit)} className="form-container">
       <h3>{selected ? 'Editar usuario' : 'Crear usuario'}</h3>
       
-      <label>Username
-        <input disabled={!!selected} {...register('username')} style={{ width: '100%', padding: '8px' }} />
-        <p style={{ color: 'crimson', margin: 0 }}>{errors.username?.message}</p>
-      </label>
+      <div className="form-group">
+        <label>Username</label>
+        <input disabled={!!selected} {...register('username')} placeholder="Ej: laura123" />
+        <p className="error-msg">{errors.username?.message}</p>
+      </div>
 
-      <label>Password {selected && <small>(dejar vacío para no cambiar)</small>}
-        <input type="password" {...register('password')} style={{ width: '100%', padding: '8px' }} />
-        <p style={{ color: 'crimson', margin: 0 }}>{errors.password?.message}</p>
-      </label>
+      <div className="form-group">
+        <label>Password {selected && <small>(dejar vacío para no cambiar)</small>}</label>
+        <input type="password" {...register('password')} placeholder="Mínimo 6 caracteres" />
+        <p className="error-msg">{errors.password?.message}</p>
+      </div>
 
-      <label>Nombre
-        <input {...register('nombre')} style={{ width: '100%', padding: '8px' }} />
-        <p style={{ color: 'crimson', margin: 0 }}>{errors.nombre?.message}</p>
-      </label>
+      <div className="form-group">
+        <label>Nombre Completo</label>
+        <input {...register('nombre')} placeholder="Ej: Laura Colon" />
+        <p className="error-msg">{errors.nombre?.message}</p>
+      </div>
 
-      <label>Edad
-        <input type="number" {...register('edad')} style={{ width: '100%', padding: '8px' }} />
-        <p style={{ color: 'crimson', margin: 0 }}>{errors.edad?.message}</p>
-      </label>
+      <div className="form-group">
+        <label>Edad</label>
+        <input type="number" {...register('edad')} placeholder="Ej: 20" />
+        <p className="error-msg">{errors.edad?.message}</p>
+      </div>
 
-      <label>Estado
-        <select {...register('id_estado')} style={{ width: '100%', padding: '8px' }}>
+      <div className="form-group">
+        <label>Estado</label>
+        <select {...register('id_estado')}>
           {estados.map(e => <option key={e.id} value={e.id}>{e.nombre}</option>)}
         </select>
-      </label>
+      </div>
 
-      <label>Tipo de usuario
-        <select {...register('id_tipo_usuario')} style={{ width: '100%', padding: '8px' }}>
+      <div className="form-group">
+        <label>Tipo de usuario</label>
+        <select {...register('id_tipo_usuario')}>
           {tipos.map(t => <option key={t.id} value={t.id}>{t.nombre}</option>)}
         </select>
-      </label>
+      </div>
 
-      <div style={{ display: 'flex', gap: '8px', marginTop: '10px' }}>
-        <button type="submit" style={{ padding: '10px', cursor: 'pointer' }}>{selected ? 'Actualizar' : 'Crear'}</button>
-        <button type="button" onClick={() => reset()} style={{ padding: '10px', cursor: 'pointer' }}>Limpiar</button>
+      <div className="btn-group">
+        <button type="submit" className="btn-primary">
+          {selected ? 'Actualizar' : 'Crear'}
+        </button>
+        <button type="button" onClick={() => reset()} className="btn-secondary">
+          Limpiar
+        </button>
       </div>
     </form>
   );

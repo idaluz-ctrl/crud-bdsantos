@@ -18,7 +18,7 @@ export default function UserTable({ onEdit, reload }) {
   };
 
   useEffect(() => {
-    // Retrasamos 1 milisegundo la carga para que React no se queje
+    // Retrasamos 1 milisegundo la carga para evitar retraso
     const timer = setTimeout(() => {
       load();
     }, 0);
@@ -36,11 +36,12 @@ export default function UserTable({ onEdit, reload }) {
   };
 
   return (
-    <div style={{ marginTop: '20px' }}>
-      <h3>Usuarios</h3>
-      {loading && <p>Cargando...</p>}
-      <table border="1" cellPadding="6" style={{ borderCollapse: 'collapse', width: '100%', textAlign: 'left', background: 'white' }}>
-        <thead style={{ background: '#e2e8f0' }}>
+    <div className="table-container">
+      <h3>Usuarios Registrados</h3>
+      {loading && <p>Cargando datos...</p>}
+      
+      <table>
+        <thead>
           <tr>
             <th>Username</th>
             <th>Nombre</th>
@@ -59,14 +60,16 @@ export default function UserTable({ onEdit, reload }) {
               <td>{u.estado}</td>
               <td>{u.tipo}</td>
               <td>
-                <button onClick={() => onEdit(u.username)} style={{ marginRight: '5px', cursor: 'pointer' }}>Editar</button>
-                <button onClick={() => remove(u.username)} style={{ color: 'red', cursor: 'pointer' }}>Eliminar</button>
+                <button onClick={() => onEdit(u.username)} className="btn-edit">Editar</button>
+                <button onClick={() => remove(u.username)} className="btn-delete">Eliminar</button>
               </td>
             </tr>
           ))}
           {!data.length && !loading && (
             <tr>
-              <td colSpan="6" style={{ textAlign: 'center' }}>Sin datos</td>
+              <td colSpan="6" style={{ textAlign: 'center', padding: '20px' }}>
+                No hay usuarios registrados
+              </td>
             </tr>
           )}
         </tbody>
